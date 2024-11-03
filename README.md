@@ -45,4 +45,4 @@ Contributions are welcome! If you'd like to add a new data structure, algorithm,
 
 ## License
 
-This repository is licensed under the [Your Preferred License] License.
+This repository is licensed under the MIT License.
