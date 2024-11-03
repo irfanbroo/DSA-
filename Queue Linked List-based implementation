@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure of a node
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+// Structure to represent the queue
+struct Queue {
+    struct Node *front, *rear;
+};
+
+// Function to create a new node
+struct Node* newNode(int data) {
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->data = data;
+    temp->next = NULL;
+    return temp;
+}
+
+// Function to create an empty queue
+struct Queue* createQueue() {
+    struct Queue* q = (struct Queue*)malloc(sizeof(struct Queue));
+    q->front = q->rear = NULL;
+    return q;
+}
+
+// Function to enqueue an element into the queue
+void enQueue(struct Queue* q, int data) {
+    struct Node* temp = newNode(data);
+    if (q->rear == NULL) {
+        q->front = q->rear = temp;
+        return;
+    }
+    q->rear->next = temp;
+    q->rear = temp;
+}
+
+// Function to dequeue an element from the queue
+int deQueue(struct Queue* q) {
+    if (q->front == NULL) {
+        printf("Queue Underflow\n");
+        return -1; // Or any other appropriate error value
+    }
+    struct Node* temp = q->front;
+    int data = temp->data;
+    q->front = q->front->next;
+    if (q->front == NULL) {
+        q->rear = NULL;
+    }
+    free(temp);
+    return data;
+}
+
+// Function to peek at the front element of the queue
+int peek(struct Queue* q) {
+    if (q->front == NULL) {
+        printf("Queue is empty\n");
+        return -1; // Or any other appropriate error value
+    }
+    return q->front->data;
+}
+
+// Function to check if the queue is empty
+int is_empty(struct Queue* q) {
+    return q->front == NULL;
+}
+
+int main() {
+    struct Queue* q = createQueue();
+    enQueue(q, 10);
+    enQueue(q, 20);
+    enQueue(q, 30);
+
+    printf("Front element: %d\n", peek(q));
+
+    printf("Dequeued element: %d\n", deQueue(q));
+    printf("Dequeued element: %d\n", deQueue(q));
+
+    printf("Is queue empty? %s\n", is_empty(q) ? "Yes" : "No");
+
+    return 0;
+}
