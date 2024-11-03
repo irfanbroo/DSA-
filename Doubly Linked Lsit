@@ -1,0 +1,109 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure of a node
+struct Node {
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};
+
+// Function to create a new node
+struct Node* newNode(int data) {
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    new_node->data = data;
+    new_node->prev = NULL;
+    new_node->next = NULL;
+    return new_node;
+}
+
+// Function to insert a new node at the beginning of the list
+void insertAtBeginning(struct Node** head_ref, int new_data) {
+    struct Node* new_node = newNode(new_data);
+    new_node->next = *head_ref;
+    if (*head_ref != NULL) {
+        (*head_ref)->prev = new_node;
+    }
+    *head_ref = new_node;
+}
+
+// Function to insert a new node at the end of the list
+void insertAtEnd(struct Node** head_ref, int new_data) {
+    struct Node* new_node = newNode(new_data);
+    if (*head_ref == NULL) {
+        *head_ref = new_node;
+        return;
+    }
+    struct Node* last_node = *head_ref;
+    while (last_node->next != NULL) {
+        last_node = last_node->next;
+    }
+    last_node->next = new_node;
+    new_node->prev = last_node;
+}
+
+// Function to insert a new node after a given node
+void insertAfter(struct Node* prev_node, int new_data) {
+    if (prev_node == NULL) {
+        printf("The given previous node cannot be NULL");
+        return;
+    }
+    struct Node* new_node = newNode(new_data);
+    new_node->next = prev_node->next;
+    prev_node->next = new_node;
+    new_node->prev = prev_node;
+    if (new_node->next != NULL) {
+        new_node->next->prev = new_node;
+    }
+}
+
+// Function to delete a node with a given key
+void deleteNode(struct Node** head_ref, int key) {
+    struct Node *temp = *head_ref, *prev;
+    if (temp != NULL && temp->data == key) {
+        *head_ref = temp->next;
+        if (*head_ref != NULL) {
+            (*head_ref)->prev = NULL;
+        }
+        free(temp);
+        return;
+    }
+    while (temp != NULL && temp->data != key) {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (temp == NULL) return;
+    prev->next = temp->next;
+    if (temp->next != NULL) {
+        temp->next->prev = prev;
+    }
+    free(temp);
+}
+
+// Function to print the linked list
+void printList(struct Node* node) {
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    insertAtEnd(&head, 6);
+    insertAtBeginning(&head, 7);
+    insertAtBeginning(&head, 1);
+    insertAtEnd(&head, 4);
+    insertAfter(head->next, 8);
+
+    printf("Created linked list is: ");
+    printList(head);
+
+    deleteNode(&head, 8);
+    printf("Linked list after deleting 8: ");
+    printList(head);
+
+    return 0;
+}
