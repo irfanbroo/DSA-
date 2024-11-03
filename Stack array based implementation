@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_SIZE 100
+
+int stack[MAX_SIZE];
+int top = -1;
+
+// Function to push an element onto the stack
+void push(int data) {
+    if (top >= MAX_SIZE - 1) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    top++;
+    stack[top] = data;
+}
+
+// Function to pop an element from the stack
+int pop() {
+    if (top == -1) {
+        printf("Stack Underflow\n");
+        return -1; // Or any other appropriate error value
+    }
+    int data = stack[top];
+    top--;
+    return data;
+}
+
+// Function to peek at the top element of the stack
+int peek() {
+    if (top == -1) {
+        printf("Stack is empty\n");
+        return -1; // Or any other appropriate error value
+    }
+    return stack[top];
+}
+
+// Function to check if the stack is empty
+int is_empty() {
+    return top == -1;
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+
+    printf("Top element: %d\n", peek());
+
+    printf("Popped element: %d\n", pop());
+    printf("Popped element: %d\n", pop());
+
+    printf("Is stack empty? %s\n", is_empty() ? "Yes" : "No");
+
+    return 0;
+}
