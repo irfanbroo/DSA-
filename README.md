@@ -6,17 +6,17 @@ This repository contains implementations of common data structures and algorithm
 
 ## Data Structures
 
-*   **Linked List:** [Link to Linked List code file]
+*   **Linked List:** 
     *   Singly Linked List
     *   Doubly Linked List
     *   Circular Linked List
-*   **Stack:** [Link to Stack code file]
+*   **Stack:** 
     *   Array-based implementation
     *   Linked List-based implementation
-*   **Queue:** [Link to Queue code file]
+*   **Queue:** 
     *   Array-based implementation
     *   Linked List-based implementation
-*   **Tree:** [Link to Tree code file]
+*   **Tree:** 
     *   Binary Search Tree (BST)
     *   AVL Tree
     *   Heap (Min-Heap, Max-Heap)
