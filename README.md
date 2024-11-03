@@ -20,12 +20,7 @@ This repository contains implementations of common data structures and algorithm
     *   Binary Search Tree (BST)
     *   AVL Tree
     *   Heap (Min-Heap, Max-Heap)
-*   **Graph:** [Link to Graph code file]
-    *   Adjacency Matrix representation
-    *   Adjacency List representation
-*   **Hash Table:** [Link to Hash Table code file]
-    *   Separate Chaining collision handling
-    *   Open Addressing collision handling
+
 
 ## Algorithms
 
