@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *left;
+    struct Node *right;
+};
+
+// Function to create a new node
+struct Node* newNode(int data) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = data;
+    node->left = node->right = NULL;
+    return node;
+}
+
+// Function to insert a new node in a BST
+struct Node* insert(struct Node* node, int data) {
+    if (node == NULL) {
+        return newNode(data);
+    }
+
+    if (data < node->data) {
+        node->left = insert(node->left, data);
+    } else if (data > node->data) {
+        node->right = insert(node->right, data);
+    }
+
+    return node;
+}
+
+// Function to perform inorder traversal of a BST
+void inorder(struct Node* root) {
+    if (root != NULL) {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+
+// Function to search for a node with a given key in a BST
+struct Node* search(struct Node* root, int key) {
+    if (root == NULL || root->data == key) {
+        return root;
+    }
+
+    if (key < root->data) {
+        return search(root->left, key);
+    }
+
+    return search(root->right, key);
+}
+
+int main() {
+    struct Node* root = NULL;
+    root = insert(root, 50);
+    insert(root, 30);
+    insert(root, 20);
+    insert(root, 40);
+    insert(root, 70);
+    insert(root, 60);
+    insert(root, 80);
+
+    printf("Inorder traversal of the BST: \n");
+    inorder(root);
+    printf("\n");
+
+    int key = 60;
+    if (search(root, key) != NULL) {
+        printf("Key %d found in the BST\n", key);
+    } else {
+        printf("Key %d not found in the BST\n", key);
+    }
+
+    return 0;
+}
