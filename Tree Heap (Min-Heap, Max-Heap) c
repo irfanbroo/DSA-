@@ -1,0 +1,88 @@
+#include <stdio.h>
+
+// Function to swap two integers
+void swap(int *x, int *y) {
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+// Function to heapify a subtree rooted at index 'i' in a min-heap
+void minHeapify(int arr[], int n, int i) {
+    int smallest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n && arr[left] < arr[smallest]) {
+        smallest = left;
+    }
+
+    if (right < n && arr[right] < arr[smallest]) {
+        smallest = right;
+    }
+
+    if (smallest != i) {
+        swap(&arr[i], &arr[smallest]);
+        minHeapify(arr, n, smallest);
+    }
+}
+
+// Function to heapify a subtree rooted at index 'i' in a max-heap
+void maxHeapify(int arr[], int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest]) {
+        largest = left;
+    }
+
+    if (right < n && arr[right] > arr[largest]) {
+        largest = right;
+    }
+
+    if (largest != i) {
+        swap(&arr[i], &arr[largest]);
+        maxHeapify(arr, n, largest);
+    }
+}
+
+// Function to build a min-heap from an array
+void buildMinHeap(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        minHeapify(arr, n, i);
+    }
+}
+
+// Function to build a max-heap from an array
+void buildMaxHeap(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        maxHeapify(arr, n, i);
+    }
+}
+
+// Function to print an array
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; ++i) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Original array: \n");
+    printArray(arr, n);
+
+    buildMinHeap(arr, n);
+    printf("Min-heap: \n");
+    printArray(arr, n);
+
+    buildMaxHeap(arr, n);
+    printf("Max-heap: \n");
+    printArray(arr, n);
+
+    return 0;
+}
